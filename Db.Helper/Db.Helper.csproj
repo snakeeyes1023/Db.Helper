@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>Snake.Db.Helpers</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Snake.Db.Helpers</PackageId>
+    <Authors>Jonathan Côté</Authors>
+    <Product>Jonathan Côté Db Helper</Product>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>Somes Query using Dapper</Description>
+    <Copyright>2021</Copyright>
+    <PackageProjectUrl>https://beta.minientrepotplessis.com</PackageProjectUrl>
+    <PackageTags>Helpers Db Query Dapper</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="MySql.Data" Version="8.0.27" />
+  </ItemGroup>
+
+</Project>
