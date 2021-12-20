@@ -13,11 +13,13 @@
     <PackageProjectUrl>https://beta.minientrepotplessis.com</PackageProjectUrl>
     <PackageTags>Helpers Db Query Dapper</PackageTags>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="MySql.Data" Version="8.0.27" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
 
 </Project>

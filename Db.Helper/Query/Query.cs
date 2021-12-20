@@ -5,12 +5,23 @@ using System.Linq;
 using MySql.Data.MySqlClient;
 using Snake.Db.Helpers.Connection;
 using Dapper;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace Snake.Db.Helpers.Query
 {
     public class Query
     {
-        private static MySqlConnection Connection => new MySqlConnection(Configuration.Db);
+        private static IDbConnection Connection { 
+            get 
+            {
+                if (Configuration.IsSql)
+                {
+                    return new SqlConnection(Configuration.Db);
+                }
+                return new MySqlConnection(Configuration.Db);
+            } 
+        }
                
         /// <summary>
         /// Obtenir seulement un résultat exemple (SELECT * WHERE Id = 10)
@@ -21,8 +32,11 @@ namespace Snake.Db.Helpers.Query
         public static t Get<t>(string sql, object model = null)
         {
             StringBuilder sqlStatement = FormatSql(sql);
-            sqlStatement.Append(" LIMIT 1;");
 
+            if (!Configuration.IsSql)
+            {
+                sqlStatement.Append(" LIMIT 1;");
+            }
             return Connection.Query<t>(sql, model).FirstOrDefault();
         }
 
@@ -52,7 +66,14 @@ namespace Snake.Db.Helpers.Query
             StringBuilder sqlStatement = FormatSql(sql);
             VerifyModel(model);
 
-            sqlStatement.Append(" SELECT LAST_INSERT_ID();");
+            if (Configuration.IsSql)
+            {
+                sqlStatement.Append(" SELECT SCOPE_IDENTITY();");
+            }
+            else
+            {
+                sqlStatement.Append(" SELECT LAST_INSERT_ID();");
+            }
 
             return Connection.ExecuteScalar<int>(sql.ToString(), model);
         }
